@@ -74,7 +74,7 @@ router.post('/register',
     passport.authenticate('register',
         {failureRedirect: '/users/registerFail'}
     ), (req, res) => {
-        res.send("Successful Registration")
+        res.send(req.body.username)
     });
 router.get('/registerFail', (req, res) => {
     res.send("Failed Registration");
