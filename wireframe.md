@@ -1,5 +1,11 @@
 # project3-mern Wireframe
-
+###TODO:
+- edit tweets
+- look up mongoose queries to sort tweets by date
+- add CSS to profile pages
+- display all tweets on homepage (50% complete)
+- cookies?
+- search tweets
 ###Server:
 - new user strategy and routes
 - login strategy and routes

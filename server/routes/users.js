@@ -128,7 +128,7 @@ router.get('/grabTweets',(req,res)=> {
    TwitterUserCollection.find({},(errors,results)=>{
        if(errors) res.send(errors);
        else{
-           res.send(results)
+           res.send(results);
        }
    })
 });

@@ -5,6 +5,7 @@ import TwitterHome from "./TwitterHome";
 import TwitterRegistration from "./TwitterRegistration";
 import TwitterProfile from "./TwitterProfile";
 import TwitterLogout from "./TwitterLogout";
+import EditTweet from "./EditTweet";
 
 class App extends Component {
 
@@ -39,6 +40,7 @@ class App extends Component {
           <Route path={'/register'} component={() => <TwitterRegistration userInfo={this.userInfo} />} />
           <Route path={'/profile'} component={() => <TwitterProfile username={this.state.username} isLoggedIn={this.state.isLoggedIn}/>} />
           <Route path={'/logout'} component={()=> <TwitterLogout/>} />
+          <Route path={'/edit'} component={()=> <EditTweet/>} />
         </Router>
     );
   }

@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import {BrowserRouter as Router, Link, Route} from 'react-router-dom';
 
 class TwitterProfile extends Component {
     constructor(props) {
@@ -33,15 +34,19 @@ class TwitterProfile extends Component {
         }
     };
 
+    // fixme INCOMPLETE
+    //list tweets
     mapTweets = () => {
         if (this.state.userData.tweets) {
-            console.log(this.state.userData.tweets);
             let tweetMap = this.state.userData.tweets.map((eachTweet) => {
                 return (
-                    <div key={eachTweet._id} className={'tweetGrid'}>
-                        <p className={'tweetMessage'}>{eachTweet.tweetMessage}</p>
-                        <img className={'tweetImage'} src={eachTweet.tweetImage} alt=""/>
-                    </div>
+                    <Router>
+                        <div key={eachTweet._id} className={'tweetGrid'}>
+                            <p className={'tweetMessage'}>{eachTweet.tweetMessage}</p>
+                            <img className={'tweetImage'} src={eachTweet.tweetImage} alt=""/>
+                            <Link to={'/edit'}>Edit</Link>
+                        </div>
+                    </Router>
                 )
             });
             this.setState({tweetArray:tweetMap})
@@ -69,8 +74,6 @@ class TwitterProfile extends Component {
         })
             .then(()=>console.log('Tweet Added'))
     };
-
-
 
     render() {
         //logged in user

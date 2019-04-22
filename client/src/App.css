@@ -29,18 +29,28 @@
 
 .tweetGrid{
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  margin: 0 10% 0 10%;
+  font-size: 25px;
+  grid-template-columns: 1fr 2fr;
+  margin: 1% 25% 1% 25%;
   height: 5%;
-  border: 1px solid black;
+  width: 50%;
+  border: 1px solid blue;
 }
 
 .tweetMessage{
   grid-column: 2;
+  grid-row: 1;
 }
 
 .tweetImage{
   grid-column: 1;
+  grid-row: 1;
   width: 25%;
   padding: 5%;
+}
+.editButton{
+  grid-column: 2;
+  grid-row: 2;
+  width: 25%;
+  margin: 5%;
 }
