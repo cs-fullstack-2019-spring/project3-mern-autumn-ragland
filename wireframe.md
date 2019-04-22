@@ -7,7 +7,6 @@
 - new tweet route (post, $push)
 - all tweet routes (get)
 - search tweet routes (get)
-- user tweets route?
 
 ###Client Components
 HomePage:

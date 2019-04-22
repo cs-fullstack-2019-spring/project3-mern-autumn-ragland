@@ -9,3 +9,38 @@
 .formStyle{
   margin: 1%;
 }
+
+.profileImages{
+  display: grid;
+  grid-template-columns: 1fr 5fr;
+  margin: 0 10% 0 10%;
+  height: 5%;
+}
+
+.profile{
+  grid-column: 1;
+}
+
+.background{
+  grid-column: 2;
+  width: 100%;
+  height: 100%;
+}
+
+.tweetGrid{
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  margin: 0 10% 0 10%;
+  height: 5%;
+  border: 1px solid black;
+}
+
+.tweetMessage{
+  grid-column: 2;
+}
+
+.tweetImage{
+  grid-column: 1;
+  width: 25%;
+  padding: 5%;
+}

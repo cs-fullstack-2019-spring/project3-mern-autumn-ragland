@@ -24,7 +24,7 @@ var createHash = function (password) {
     return bCrypt.hashSync(password, bCrypt.genSaltSync(10), null);
 };
 
-//cookie check PRETTY SURE THIS IS WRONG
+//cookie check fixme
 // router.get('/', (req, res) => {
 //   if (req.session.username) {
 //     res.send(req.session.username);
@@ -115,8 +115,6 @@ router.get('/loginFail', (req, res) => {
 
 //add a tweet
 router.post('/addTweet', (req, res) => {
-    console.log("Add Tweet");
-    console.log(req.body);
     TwitterUserCollection.findOneAndUpdate({username: req.body.username},
         {$push: {tweets:req.body}}, (errors) => {
             if (errors) res.send(errors);
@@ -124,7 +122,7 @@ router.post('/addTweet', (req, res) => {
         });
 });
 
-//get all tweets
+//get all tweets fixme
 //results = user object array. Map array for each user THEN map each user for tweets
 router.get('/grabTweets',(req,res)=> {
    TwitterUserCollection.find({},(errors,results)=>{
@@ -135,7 +133,7 @@ router.get('/grabTweets',(req,res)=> {
    })
 });
 
-//search tweets INCOMPLETE SEARCH BY USERNAME
+//search tweets INCOMPLETE SEARCH BY USERNAME fixme
 router.get('/searchTweets',(req,res)=> {
     TwitterUserCollection.findOne({username:req.body.username},(errors,results)=>{
         if(errors) res.send(errors);
@@ -145,12 +143,12 @@ router.get('/searchTweets',(req,res)=> {
     })
 });
 
-//search users
-router.get('/searchUsers',(req,res)=> {
-    TwitterUserCollection.findOne({username:req.session.username},(errors,results)=>{
+//grab user
+router.post('/searchUsers',(req,res)=> {
+    TwitterUserCollection.findOne({username:req.body.username},(errors,results)=>{
         if(errors) res.send(errors);
         else{
-            res.send(results)
+            res.send(results);
         }
     })
 });

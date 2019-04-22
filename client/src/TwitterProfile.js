@@ -1,14 +1,52 @@
 import React, {Component} from 'react';
 
 class TwitterProfile extends Component {
-
     constructor(props) {
         super(props);
         this.state = {
-            userData:[],
-            checkbox:false
-        }
+            userData:'',
+            checkbox:false,
+            tweetArray:[]
+        };
+        this.userFetch();
     }
+
+    //fetch to grab user profile image and header
+    userFetch = () => {
+        if(this.props.isLoggedIn === true){
+            fetch('/users/searchUsers',{
+                method:'POST',
+                headers:{
+                    "Accept": "application/json",
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    username:this.props.username,
+                })
+            })
+                .then(data=>data.json())
+                .then(returnedData => this.setState({userData:returnedData}))
+                .then(()=> this.mapTweets())
+        }
+        else{
+            console.log('User must login')
+        }
+    };
+
+    mapTweets = () => {
+        if (this.state.userData.tweets) {
+            console.log(this.state.userData.tweets);
+            let tweetMap = this.state.userData.tweets.map((eachTweet) => {
+                return (
+                    <div key={eachTweet._id} className={'tweetGrid'}>
+                        <p className={'tweetMessage'}>{eachTweet.tweetMessage}</p>
+                        <img className={'tweetImage'} src={eachTweet.tweetImage} alt=""/>
+                    </div>
+                )
+            });
+            this.setState({tweetArray:tweetMap})
+        }
+    };
 
     //add tweet form submission event handler
     formSubmit = (e) => {
@@ -32,23 +70,17 @@ class TwitterProfile extends Component {
             .then(()=>console.log('Tweet Added'))
     };
 
-    //BROKEN/INCOMPLETE fetch to grab user profile image and header
-    userFetch = () => {
-        fetch('/users/searchUsers')
-            .then(data=>data.json())
-            .then(returnedData => this.setState({userData:returnedData}))
-            .then((returnedData)=>console.log(returnedData))
-    };
+
 
     render() {
         //logged in user
-        if(this.props.isLoggedIn === true){
+        if (this.props.isLoggedIn === true) {
             return (
                 <div className="App">
                     <h1>{this.props.username}'s Profile</h1>
-                    <div>
-                        <h1>profile image</h1>
-                        <h1>header image</h1>
+                    <div className={'profileImages'}>
+                        <img className={'profile'} src={this.state.userData.profileImage} alt=""/>
+                        <img className={'background'} src={this.state.userData.backgroundImage} alt=""/>
                     </div>
                     <h2>Add Tweet</h2>
                     <form onSubmit={this.formSubmit}>
@@ -69,6 +101,7 @@ class TwitterProfile extends Component {
                         </div>
                     </form>
                     <h3>Your Tweets</h3>
+                    {this.state.tweetArray}
                 </div>
             );
         }
@@ -80,7 +113,6 @@ class TwitterProfile extends Component {
                 </div>
             )
         }
-
     }
 }
 
