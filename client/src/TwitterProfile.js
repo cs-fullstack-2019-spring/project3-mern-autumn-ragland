@@ -2,8 +2,19 @@ import React, {Component} from 'react';
 
 class TwitterProfile extends Component {
 
-    //BROKEN/INCOMPLETE
+    constructor(props) {
+        super(props);
+        this.state = {
+            userData:[],
+            checkbox:false
+        }
+    }
+
+    //add tweet form submission event handler
     formSubmit = (e) => {
+        if (e.target.tweetPublic.value === 'on'){
+            this.setState({checkbox:true})
+        }
         e.preventDefault();
         fetch('/users/addTweet', {
             method:'POST',
@@ -15,16 +26,30 @@ class TwitterProfile extends Component {
                 username:this.props.username,
                 tweetMessage:e.target.tweetMessage.value,
                 tweetImage:e.target.tweetImage.value,
-                tweetPublic:e.target.tweetPublic.value
+                tweetPublic:this.state.checkbox,
             })
         })
+            .then(()=>console.log('Tweet Added'))
+    };
+
+    //BROKEN/INCOMPLETE fetch to grab user profile image and header
+    userFetch = () => {
+        fetch('/users/searchUsers')
+            .then(data=>data.json())
+            .then(returnedData => this.setState({userData:returnedData}))
+            .then((returnedData)=>console.log(returnedData))
     };
 
     render() {
+        //logged in user
         if(this.props.isLoggedIn === true){
             return (
                 <div className="App">
-                    <h1>Mock Twitter {this.props.username}'s Profile</h1>
+                    <h1>{this.props.username}'s Profile</h1>
+                    <div>
+                        <h1>profile image</h1>
+                        <h1>header image</h1>
+                    </div>
                     <h2>Add Tweet</h2>
                     <form onSubmit={this.formSubmit}>
                         <div className={'formStyle'}>
@@ -33,7 +58,7 @@ class TwitterProfile extends Component {
                         </div>
                         <div className={'formStyle'}>
                             <label htmlFor={'tweetImage'}>Tweet Image URL: </label>
-                            <input type="password" id={'tweetImage'} name={'tweetImage'}/>
+                            <input type="text" id={'tweetImage'} name={'tweetImage'}/>
                         </div>
                         <div className={'formStyle'}>
                             <label htmlFor={'tweetPublic'}>Public Tweet: </label>
@@ -47,6 +72,7 @@ class TwitterProfile extends Component {
                 </div>
             );
         }
+        //not logged in user
         else{
             return (
                 <div className="App">

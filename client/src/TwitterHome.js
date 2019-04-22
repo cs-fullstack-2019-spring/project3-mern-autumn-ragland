@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 
 class TwitterHome extends Component {
 
-
+    //form submission event handler
     formSubmit = (e) => {
         e.preventDefault();
         fetch('/users/login', {

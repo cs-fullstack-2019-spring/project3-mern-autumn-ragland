@@ -115,6 +115,8 @@ router.get('/loginFail', (req, res) => {
 
 //add a tweet
 router.post('/addTweet', (req, res) => {
+    console.log("Add Tweet");
+    console.log(req.body);
     TwitterUserCollection.findOneAndUpdate({username: req.body.username},
         {$push: {tweets:req.body}}, (errors) => {
             if (errors) res.send(errors);
@@ -136,6 +138,16 @@ router.get('/grabTweets',(req,res)=> {
 //search tweets INCOMPLETE SEARCH BY USERNAME
 router.get('/searchTweets',(req,res)=> {
     TwitterUserCollection.findOne({username:req.body.username},(errors,results)=>{
+        if(errors) res.send(errors);
+        else{
+            res.send(results)
+        }
+    })
+});
+
+//search users
+router.get('/searchUsers',(req,res)=> {
+    TwitterUserCollection.findOne({username:req.session.username},(errors,results)=>{
         if(errors) res.send(errors);
         else{
             res.send(results)
