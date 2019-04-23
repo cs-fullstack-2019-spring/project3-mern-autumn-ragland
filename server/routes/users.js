@@ -124,34 +124,49 @@ router.post('/addTweet', (req, res) => {
 });
 
 //edit tweet message
-router.post('/editTweet/:id/:tweetId',(req,res)=>{
-    TwitterUserCollection.updateOne({_id:req.params.id, "tweets._id": req.params.tweetId},
-        {$set: {"tweets.$.tweetMessage": req.body.tweetMessage}}, (errors)=>{
-            if(errors) res.send(errors);
-            else{
+router.post('/editTweet/:id/:tweetId', (req, res) => {
+    TwitterUserCollection.updateOne({_id: req.params.id, "tweets._id": req.params.tweetId},
+        {
+            $set: {
+                "tweets.$.tweetMessage": req.body.tweetMessage,
+                "tweets.$.tweetImage": req.body.tweetImage,
+                "tweets.$.tweetPublic": req.body.tweetPublic
+            }
+        }, (errors) => {
+            if (errors) res.send(errors);
+            else {
                 res.send('tweet updated')
             }
-    });
+        });
 });
 
-//get all tweets fixme
 //results = user object array. Map array for each user THEN map each user for tweets
 router.get('/grabTweets', (req, res) => {
     TwitterUserCollection.find({}, (errors, results) => {
         if (errors) res.send(errors);
         else {
-           res.send(results)
+            res.send(results)
         }
     })
 });
 
-//INCOMPLETE SEARCH BY USERNAME fixme
+//INCOMPLETE fixme
 //search tweets
-router.get('/searchTweets', (req, res) => {
-    TwitterUserCollection.findOne({username: req.body.username}, (errors, results) => {
-        if (errors) res.send(errors);
+router.post('/searchTweets', (req, res) => {
+    let searchResults = 'no results';
+    TwitterUserCollection.find({}, (errors, results) => {
+        if (errors) res.send('not found');
         else {
-            res.send(results)
+            for (let i = 0; i < parseInt(results.length); i++) {
+                for (let j = 0; j < results[i].tweets.length; j++) {
+                    console.log(results[i].tweets[j].tweetMessage);
+                    if((results[i].tweets[j].tweetMessage) === (req.body.searchBar)){
+                        searchResults = results[i].tweets[j].tweetMessage;
+                        console.log(results[i].tweets[j].tweetMessage)
+                    }
+                }
+            }
+            res.send(searchResults)
         }
     })
 });

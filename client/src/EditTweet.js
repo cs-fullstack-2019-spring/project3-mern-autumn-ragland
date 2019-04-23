@@ -20,8 +20,8 @@ class EditTweet extends Component {
             },
             body: JSON.stringify({
                 tweetMessage: e.target.tweetMessage.value,
-                // tweetImage: e.target.tweetImage.value,
-                // tweetPublic:e.target.tweetPublic.checked,
+                tweetImage: e.target.tweetImage.value,
+                tweetPublic:e.target.tweetPublic.checked,
             })
         })
             .then(() => console.log('Tweet Updated'))
@@ -38,14 +38,14 @@ class EditTweet extends Component {
                             <label htmlFor={'tweetMessage'}>Tweet Message: </label>
                             <input className={'textBox'} type="text" id={'tweetMessage'} defaultValue={this.props.tweetMessage} name={'tweetMessage'}/>
                         </div>
-                        {/*<div className={'formStyle'}>*/}
-                        {/*    <label htmlFor={'tweetImage'}>Tweet Image URL: </label>*/}
-                        {/*    <input type="text" id={'tweetImage'} value={this.props.tweetImage} name={'tweetImage'}/>*/}
-                        {/*</div>*/}
-                        {/*<div className={'formStyle'}>*/}
-                        {/*    <label htmlFor={'tweetPublic'}>Public Tweet: </label>*/}
-                        {/*    <input type="checkbox" name={'tweetPublic'}/>*/}
-                        {/*</div>*/}
+                        <div className={'formStyle'}>
+                            <label htmlFor={'tweetImage'}>Tweet Image URL: </label>
+                            <input type="text" id={'tweetImage'} defaultValue={this.props.tweetImage} name={'tweetImage'}/>
+                        </div>
+                        <div className={'formStyle'}>
+                            <label htmlFor={'tweetPublic'}>Public Tweet: </label>
+                            <input type="checkbox" name={'tweetPublic'}/>
+                        </div>
                         <div className={'formStyle'}>
                             <input type="submit" value={'edit tweet'}/>
                         </div>

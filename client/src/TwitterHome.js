@@ -10,11 +10,13 @@ class TwitterHome extends Component {
             anotherMap:[],
             theFinalPublicMap:[],
             theFinalLoggedInMap:[],
+            searchResults:'',
+            mappedResults:[],
         };
         this.tweetFetch()
     }
 
-    //form submission event handler
+    //sign in form submission event handler
     formSubmit = (e) => {
         e.preventDefault();
         fetch('/users/login', {
@@ -75,15 +77,57 @@ class TwitterHome extends Component {
             }
         });
         let finalLoggedInMap = this.state.anotherMap.map((eachTweet)=>{
-                return(
-                    <div key={eachTweet._id} className={'tweetGrid'}>
-                        <p className={'tweetMessage'}>{eachTweet.tweetMessage}</p>
-                        <img className={'tweetImage'} src={eachTweet.tweetImage} alt=""/>
-                    </div>
-                )
+            return(
+                <div key={eachTweet._id} className={'tweetGrid'}>
+                    <p className={'tweetMessage'}>{eachTweet.tweetMessage}</p>
+                    <img className={'tweetImage'} src={eachTweet.tweetImage} alt=""/>
+                </div>
+            )
         });
         this.setState({theFinalPublicMap:finalPublicMap});
         this.setState({theFinalLoggedInMap:finalLoggedInMap})
+    };
+
+    //search form submission handler
+    searchFormSubmit = (e) =>{
+        e.preventDefault();
+        fetch('/users/searchTweets', {
+            method: 'POST',
+            headers: {
+                "Accept": "application/json",
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                searchBar: e.target.searchBar.value,
+            })
+        })
+            .then((data) => data.text())
+            .then((data) => {
+                if (data) {
+                    this.setState({searchResults:data});
+                    // this.mapResults()
+                } else {
+                    this.setState({searchResults:null});
+                }
+            })
+
+    };
+
+    // mapResults = () => {
+    //   let mappedResults = this.state.searchResults.map((eachResult)=> {
+    //       return(
+    //           <div>
+    //               <p>{eachResult}</p>
+    //               <br/>
+    //           </div>
+    //       )
+    //   });
+    //     this.setState({mappedResults:mappedResults})
+    // };
+
+    //clear the search results
+    clearResults = () => {
+        this.setState({searchResults:null})
     };
 
     render() {
@@ -92,14 +136,18 @@ class TwitterHome extends Component {
             return (
                 <div className="App">
                     <div>
-                        <form className={'formStyle'}>
+                        <form className={'formStyle'} onSubmit={this.searchFormSubmit}>
                             <label htmlFor={'searchBar'}>Search: </label>
                             <input type="text" name={'searchBar'} placeholder={'search all tweets'}/>
+                            <input type="submit" value={'search'}/>
                         </form>
                     </div>
+                    <button onClick={this.clearResults}>Clear Results</button>
+                    <br/>
+                    {this.state.searchResults}
                     <h3>All Tweets: </h3>
                     <hr/>
-                    {this.state.theFinalLoggedInMap}
+                    {this.state.theFinalLoggedInMap.slice(0,5)}
                 </div>
             );
         }
@@ -108,11 +156,15 @@ class TwitterHome extends Component {
             return (
                 <div className="App">
                     <div>
-                        <form className={'formStyle'}>
+                        <form className={'formStyle'} onSubmit={this.searchFormSubmit}>
                             <label htmlFor={'searchBar'}>Search: </label>
                             <input type="text" name={'searchBar'} placeholder={'search all tweets'}/>
+                            <input type="submit" value={'search'}/>
                         </form>
                     </div>
+                    <button onClick={this.clearResults}>Clear Results</button>
+                    <br/>
+                    {this.state.searchResults}
                     <h3>Sign In</h3>
                     <form onSubmit={this.formSubmit}>
                         <div className={'formStyle'}>
@@ -129,7 +181,7 @@ class TwitterHome extends Component {
                     </form>
                     <h3>Public Tweets: </h3>
                     <hr/>
-                    {this.state.theFinalPublicMap}
+                    {this.state.theFinalPublicMap.slice(0,5)}
                 </div>
             );
         }
