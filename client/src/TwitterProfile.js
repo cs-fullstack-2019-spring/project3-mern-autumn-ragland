@@ -1,13 +1,13 @@
 import React, {Component} from 'react';
 import {BrowserRouter as Router, Link, Route} from 'react-router-dom';
+import EditTweet from "./EditTweet";
 
 class TwitterProfile extends Component {
     constructor(props) {
         super(props);
         this.state = {
             userData:'',
-            checkbox:false,
-            tweetArray:[]
+            tweetArray:[],
         };
         this.userFetch();
     }
@@ -44,8 +44,10 @@ class TwitterProfile extends Component {
                         <div key={eachTweet._id} className={'tweetGrid'}>
                             <p className={'tweetMessage'}>{eachTweet.tweetMessage}</p>
                             <img className={'tweetImage'} src={eachTweet.tweetImage} alt=""/>
-                            <Link to={'/edit'}>Edit</Link>
+                            <Link to={'/edit/' + eachTweet._id}>Edit</Link>
                         </div>
+                        <Route exact path={'/edit/' + eachTweet._id}
+                               component={()=> <EditTweet tweetMessage={eachTweet.tweetMessage} tweetImage={eachTweet.tweetImage}/>}/>
                     </Router>
                 )
             });
@@ -55,9 +57,6 @@ class TwitterProfile extends Component {
 
     //add tweet form submission event handler
     formSubmit = (e) => {
-        if (e.target.tweetPublic.value === 'on'){
-            this.setState({checkbox:true})
-        }
         e.preventDefault();
         fetch('/users/addTweet', {
             method:'POST',
@@ -69,7 +68,7 @@ class TwitterProfile extends Component {
                 username:this.props.username,
                 tweetMessage:e.target.tweetMessage.value,
                 tweetImage:e.target.tweetImage.value,
-                tweetPublic:this.state.checkbox,
+                tweetPublic:e.target.tweetPublic.checked,
             })
         })
             .then(()=>console.log('Tweet Added'))

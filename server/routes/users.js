@@ -116,38 +116,48 @@ router.get('/loginFail', (req, res) => {
 //add a tweet
 router.post('/addTweet', (req, res) => {
     TwitterUserCollection.findOneAndUpdate({username: req.body.username},
-        {$push: {tweets:req.body}}, (errors) => {
+        {$push: {tweets: req.body}}, (errors) => {
             if (errors) res.send(errors);
             else res.send("Tweet Added");
         });
 });
 
-//get all tweets fixme
-//results = user object array. Map array for each user THEN map each user for tweets
-router.get('/grabTweets',(req,res)=> {
-   TwitterUserCollection.find({},(errors,results)=>{
-       if(errors) res.send(errors);
-       else{
-           res.send(results);
-       }
-   })
+//edit a tweet by tweet ID
+router.post('/editTweet/:id', (req, res) => {
+    TwitterUserCollection.findOneAndUpdate({tweets: {_id: req.params.id}}, req.body, (errors, results) => {
+        if (errors) res.send(errors);
+        else if (results) res.send('tweet found by id');
+        else res.send('tweet not found by id');
+    });
 });
 
-//search tweets INCOMPLETE SEARCH BY USERNAME fixme
-router.get('/searchTweets',(req,res)=> {
-    TwitterUserCollection.findOne({username:req.body.username},(errors,results)=>{
-        if(errors) res.send(errors);
-        else{
+//get all tweets fixme
+//results = user object array. Map array for each user THEN map each user for tweets
+router.get('/grabTweets', (req, res) => {
+    TwitterUserCollection.find({}, (errors, results) => {
+        if (errors) res.send(errors);
+        else {
+            res.send(results);
+        }
+    })
+});
+
+//INCOMPLETE SEARCH BY USERNAME fixme
+//search tweets
+router.get('/searchTweets', (req, res) => {
+    TwitterUserCollection.findOne({username: req.body.username}, (errors, results) => {
+        if (errors) res.send(errors);
+        else {
             res.send(results)
         }
     })
 });
 
 //grab user
-router.post('/searchUsers',(req,res)=> {
-    TwitterUserCollection.findOne({username:req.body.username},(errors,results)=>{
-        if(errors) res.send(errors);
-        else{
+router.post('/searchUsers', (req, res) => {
+    TwitterUserCollection.findOne({username: req.body.username}, (errors, results) => {
+        if (errors) res.send(errors);
+        else {
             res.send(results);
         }
     })

@@ -12,34 +12,37 @@
 
 .profileImages{
   display: grid;
-  grid-template-columns: 1fr 5fr;
+  grid-template-columns: 1fr 1fr;
   margin: 0 10% 0 10%;
-  height: 5%;
 }
 
 .profile{
   grid-column: 1;
+  height: 100%;
+  clip-path: circle(25% at center);
+  background: lightblue;
 }
 
-.background{
+.background {
   grid-column: 2;
-  width: 100%;
-  height: 100%;
 }
 
 .tweetGrid{
   display: grid;
   font-size: 25px;
-  grid-template-columns: 1fr 2fr;
+  grid-template-columns: 1fr 1fr;
   margin: 1% 25% 1% 25%;
   height: 5%;
   width: 50%;
-  border: 1px solid blue;
+  background: rgba(211, 211, 211, 0.5);
+  border: 2px solid lightgray;
 }
 
 .tweetMessage{
   grid-column: 2;
   grid-row: 1;
+  padding: 1%;
+  font-size: 15px;
 }
 
 .tweetImage{

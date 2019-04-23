@@ -80,7 +80,7 @@ class TwitterHome extends Component {
             return (
                 <div className="App">
                     <div>
-                        <form>
+                        <form className={'formStyle'}>
                             <label htmlFor={'searchBar'}>Search: </label>
                             <input type="text" name={'searchBar'} placeholder={'search all tweets'}/>
                         </form>
@@ -96,7 +96,7 @@ class TwitterHome extends Component {
             return (
                 <div className="App">
                     <div>
-                        <form>
+                        <form className={'formStyle'}>
                             <label htmlFor={'searchBar'}>Search: </label>
                             <input type="text" name={'searchBar'} placeholder={'search all tweets'}/>
                         </form>

@@ -1,11 +1,10 @@
 # project3-mern Wireframe
 ###TODO:
-- edit tweets
-- look up mongoose queries to sort tweets by date
-- add CSS to profile pages
-- display all tweets on homepage (50% complete)
+- edit tweets route
+- look up mongoose queries to sort tweets by date: 
+    UserCollection.find( ).sort( { field: value } )
 - cookies?
-- search tweets
+- search tweets by tweet body
 ###Server:
 - new user strategy and routes
 - login strategy and routes

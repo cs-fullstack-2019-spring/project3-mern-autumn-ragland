@@ -40,7 +40,7 @@ class App extends Component {
           <Route path={'/register'} component={() => <TwitterRegistration userInfo={this.userInfo} />} />
           <Route path={'/profile'} component={() => <TwitterProfile username={this.state.username} isLoggedIn={this.state.isLoggedIn}/>} />
           <Route path={'/logout'} component={()=> <TwitterLogout/>} />
-          <Route path={'/edit'} component={()=> <EditTweet/>} />
+          <Route path={'/edit/:tweetID'} component={()=> <EditTweet/>} />
         </Router>
     );
   }
