@@ -8,7 +8,8 @@ class TwitterHome extends Component {
             userObject: [],
             tweetArray:[],
             anotherMap:[],
-            theFinalMap:[],
+            theFinalPublicMap:[],
+            theFinalLoggedInMap:[],
         };
         this.tweetFetch()
     }
@@ -42,12 +43,12 @@ class TwitterHome extends Component {
         fetch('/users/grabTweets')
             .then(data => data.json())
             .then(returnedData => this.setState({userObject: returnedData}))
-            .then(() => this.mapAllTweets())
+            .then(() => this.mapUsersData())
 
     };
 
     //map tweets from user object
-    mapAllTweets = () => {
+    mapUsersData = () => {
         let mappedUsers = this.state.userObject.map((eachUser) => {
             return (
                 eachUser.tweets
@@ -59,19 +60,30 @@ class TwitterHome extends Component {
             });
             this.setState({tweetArray:mappedTweets})
         }
-        this.mapTweetsAgain()
+        this.mapAllTweets()
     };
 
-    mapTweetsAgain = () => {
-        let finalMap = this.state.anotherMap.map((eachTweet)=>{
-            return(
-                <div key={eachTweet._id} className={'tweetGrid'}>
-                    <p className={'tweetMessage'}>{eachTweet.tweetMessage}</p>
-                    <img className={'tweetImage'} src={eachTweet.tweetImage} alt=""/>
-                </div>
-            )
+    mapAllTweets = () => {
+        let finalPublicMap = this.state.anotherMap.map((eachTweet)=>{
+            if(eachTweet.tweetPublic === true){
+                return(
+                    <div key={eachTweet._id} className={'tweetGrid'}>
+                        <p className={'tweetMessage'}>{eachTweet.tweetMessage}</p>
+                        <img className={'tweetImage'} src={eachTweet.tweetImage} alt=""/>
+                    </div>
+                )
+            }
         });
-        this.setState({theFinalMap:finalMap})
+        let finalLoggedInMap = this.state.anotherMap.map((eachTweet)=>{
+                return(
+                    <div key={eachTweet._id} className={'tweetGrid'}>
+                        <p className={'tweetMessage'}>{eachTweet.tweetMessage}</p>
+                        <img className={'tweetImage'} src={eachTweet.tweetImage} alt=""/>
+                    </div>
+                )
+        });
+        this.setState({theFinalPublicMap:finalPublicMap});
+        this.setState({theFinalLoggedInMap:finalLoggedInMap})
     };
 
     render() {
@@ -85,9 +97,9 @@ class TwitterHome extends Component {
                             <input type="text" name={'searchBar'} placeholder={'search all tweets'}/>
                         </form>
                     </div>
-                    <h3>Tweets: </h3>
+                    <h3>All Tweets: </h3>
                     <hr/>
-                    {this.state.theFinalMap}
+                    {this.state.theFinalLoggedInMap}
                 </div>
             );
         }
@@ -115,9 +127,9 @@ class TwitterHome extends Component {
                             <input type="submit" value={'sign in'}/>
                         </div>
                     </form>
-                    <h3>Tweets: </h3>
+                    <h3>Public Tweets: </h3>
                     <hr/>
-                    {this.state.theFinalMap}
+                    {this.state.theFinalPublicMap}
                 </div>
             );
         }

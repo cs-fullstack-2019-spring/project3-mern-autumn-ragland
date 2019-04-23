@@ -113,6 +113,7 @@ router.get('/loginFail', (req, res) => {
     res.send(undefined);
 });
 
+//CRUD STUFF
 //add a tweet
 router.post('/addTweet', (req, res) => {
     TwitterUserCollection.findOneAndUpdate({username: req.body.username},
@@ -122,12 +123,14 @@ router.post('/addTweet', (req, res) => {
         });
 });
 
-//edit a tweet by tweet ID
-router.post('/editTweet/:id', (req, res) => {
-    TwitterUserCollection.findOneAndUpdate({tweets: {_id: req.params.id}}, req.body, (errors, results) => {
-        if (errors) res.send(errors);
-        else if (results) res.send('tweet found by id');
-        else res.send('tweet not found by id');
+//edit tweet message
+router.post('/editTweet/:id/:tweetId',(req,res)=>{
+    TwitterUserCollection.updateOne({_id:req.params.id, "tweets._id": req.params.tweetId},
+        {$set: {"tweets.$.tweetMessage": req.body.tweetMessage}}, (errors)=>{
+            if(errors) res.send(errors);
+            else{
+                res.send('tweet updated')
+            }
     });
 });
 
@@ -137,7 +140,7 @@ router.get('/grabTweets', (req, res) => {
     TwitterUserCollection.find({}, (errors, results) => {
         if (errors) res.send(errors);
         else {
-            res.send(results);
+           res.send(results)
         }
     })
 });

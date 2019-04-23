@@ -34,7 +34,7 @@ class TwitterProfile extends Component {
         }
     };
 
-    // fixme INCOMPLETE
+    // fixme INCOMPLETE EDIT SERVER SIDE
     //list tweets
     mapTweets = () => {
         if (this.state.userData.tweets) {
@@ -44,10 +44,10 @@ class TwitterProfile extends Component {
                         <div key={eachTweet._id} className={'tweetGrid'}>
                             <p className={'tweetMessage'}>{eachTweet.tweetMessage}</p>
                             <img className={'tweetImage'} src={eachTweet.tweetImage} alt=""/>
-                            <Link to={'/edit/' + eachTweet._id}>Edit</Link>
+                            <Link to={'/edit/' + this.state.userData._id + '/' + eachTweet._id}>Edit</Link>
                         </div>
-                        <Route exact path={'/edit/' + eachTweet._id}
-                               component={()=> <EditTweet tweetMessage={eachTweet.tweetMessage} tweetImage={eachTweet.tweetImage}/>}/>
+                        <Route path={'/edit/' + this.state.userData._id + '/' + eachTweet._id}
+                               component={()=> <EditTweet tweetMessage={eachTweet.tweetMessage} tweetImage={eachTweet.tweetImage} userID={this.state.userData._id} tweetID={eachTweet._id}/>}/>
                     </Router>
                 )
             });
@@ -88,7 +88,7 @@ class TwitterProfile extends Component {
                     <form onSubmit={this.formSubmit}>
                         <div className={'formStyle'}>
                             <label htmlFor={'tweetMessage'}>Tweet Message: </label>
-                            <input type="text" id={'tweetMessage'} name={'tweetMessage'}/>
+                            <input className={'textBox'} type="text" id={'tweetMessage'} name={'tweetMessage'}/>
                         </div>
                         <div className={'formStyle'}>
                             <label htmlFor={'tweetImage'}>Tweet Image URL: </label>
