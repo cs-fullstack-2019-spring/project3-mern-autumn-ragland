@@ -160,13 +160,52 @@ router.post('/searchTweets', (req, res) => {
             for (let i = 0; i < parseInt(results.length); i++) {
                 for (let j = 0; j < results[i].tweets.length; j++) {
                     console.log(results[i].tweets[j].tweetMessage);
-                    if((results[i].tweets[j].tweetMessage) === (req.body.searchBar)){
+                    if ((results[i].tweets[j].tweetMessage) === (req.body.searchBar)) {
                         searchResults = results[i].tweets[j].tweetMessage;
                         console.log(results[i].tweets[j].tweetMessage)
                     }
                 }
             }
             res.send(searchResults)
+        }
+    })
+});
+
+//search tweets 2.0
+router.post('/searchTweets2', (req, res) => {
+    TwitterUserCollection.find(
+        {"tweets.tweetMessage": {"$regex": req.body.searchBar, "$options": "i"}}, (errors, results) => {
+            if (errors) res.send(errors);
+            else {
+                for (let i = 0; i < results.length; i++) {
+                    for (let j = 0; j < results[i].tweets.length; j++) {
+                        //add each tweet to a results collection
+                        console.log(results[i].tweets[j].tweetMessage);
+                    }
+                }
+                // resultsCollection.find({'tweetMessage': {"$regex": req.body.searchBar, "$options": "i"}}, (errors, results) => {
+                //     if(errors) console.log(errors);
+                //     else{
+                //         if(results.length < 0) console.log(results);
+                //         else console.log('no results')
+                //     }
+                // });
+                res.send('check console')
+            }
+        })
+});
+
+//search tweet 3.0 BROKEN
+router.post('/search3', (req, res) => {
+    TwitterUserCollection.findOne({'tweets.tweetMessage': req.body.searchBar}, {'tweets.$': 1}, (errors, results) => {
+        if (errors) res.send(errors);
+        else{
+            if (results) {
+                res.send(results.tweets[0].tweetMessage);
+            }
+            else{
+                res.send('no results')
+            }
         }
     })
 });

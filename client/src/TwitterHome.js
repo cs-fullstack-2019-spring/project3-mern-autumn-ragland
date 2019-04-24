@@ -8,8 +8,10 @@ class TwitterHome extends Component {
             userObject: [],
             tweetArray:[],
             anotherMap:[],
+
             theFinalPublicMap:[],
             theFinalLoggedInMap:[],
+
             searchResults:'',
             mappedResults:[],
         };
