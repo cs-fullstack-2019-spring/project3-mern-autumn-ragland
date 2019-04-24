@@ -177,20 +177,25 @@ router.post('/searchTweets2', (req, res) => {
         {"tweets.tweetMessage": {"$regex": req.body.searchBar, "$options": "i"}}, (errors, results) => {
             if (errors) res.send(errors);
             else {
+                let resultsCollection = {};
+                let resultsArray = [];
                 for (let i = 0; i < results.length; i++) {
                     for (let j = 0; j < results[i].tweets.length; j++) {
-                        //add each tweet to a results collection
+                        resultsCollection.tweetMessage = results[i].tweets[j].tweetMessage;
+                        resultsArray.push(resultsCollection);
                         console.log(results[i].tweets[j].tweetMessage);
                     }
                 }
-                // resultsCollection.find({'tweetMessage': {"$regex": req.body.searchBar, "$options": "i"}}, (errors, results) => {
-                //     if(errors) console.log(errors);
-                //     else{
-                //         if(results.length < 0) console.log(results);
-                //         else console.log('no results')
-                //     }
-                // });
-                res.send('check console')
+                // for(let i = 0; i < resultsArray.length; i++){
+                //     resultsCollection.find({'tweetMessage': {"$regex": req.body.searchBar, "$options": "i"}}, (errors, results) => {
+                //             if(errors) console.log(errors);
+                //             else{
+                //                 if(results) console.log(results);
+                //                 else console.log('no results')
+                //             }
+                //         });
+                // }
+                res.send(resultsArray);
             }
         })
 });
