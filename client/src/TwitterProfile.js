@@ -34,7 +34,6 @@ class TwitterProfile extends Component {
         }
     };
 
-    // fixme INCOMPLETE EDIT SERVER SIDE
     //list tweets
     mapTweets = () => {
         if (this.state.userData.tweets) {
@@ -44,7 +43,7 @@ class TwitterProfile extends Component {
                         <div key={eachTweet._id} className={'tweetGrid'}>
                             <p className={'tweetMessage'}>{eachTweet.tweetMessage}</p>
                             <img className={'tweetImage'} src={eachTweet.tweetImage} alt=""/>
-                            <Link to={'/edit/' + this.state.userData._id + '/' + eachTweet._id}>Edit</Link>
+                            <Link className={'editButton'} to={'/edit/' + this.state.userData._id + '/' + eachTweet._id}>Edit</Link>
                         </div>
                         <Route path={'/edit/' + this.state.userData._id + '/' + eachTweet._id}
                                component={()=> <EditTweet tweetMessage={eachTweet.tweetMessage} tweetImage={eachTweet.tweetImage} userID={this.state.userData._id} tweetID={eachTweet._id}/>}/>
@@ -80,30 +79,40 @@ class TwitterProfile extends Component {
             return (
                 <div className="App">
                     <h1>{this.props.username}'s Profile</h1>
-                    <div className={'profileImages'}>
-                        <img className={'profile'} src={this.state.userData.profileImage} alt=""/>
-                        <img className={'background'} src={this.state.userData.backgroundImage} alt=""/>
+                    <div className={'profileGrid'}>
+
+                        <div className={'profileImages'}>
+                            <img className={'profile'} src={this.state.userData.profileImage} alt=""/>
+                            <img className={'background'} src={this.state.userData.backgroundImage} alt=""/>
+                        </div>
+
+                        <div className={'profileForm'}>
+                            <h2>Add Tweet</h2>
+                            <form onSubmit={this.formSubmit}>
+                                <div className={'formStyle'}>
+                                    <label htmlFor={'tweetMessage'}>Tweet Message: </label>
+                                    <input className={'textBox'} type="text" id={'tweetMessage'} name={'tweetMessage'}/>
+                                </div>
+                                <div className={'formStyle'}>
+                                    <label htmlFor={'tweetImage'}>Tweet Image URL: </label>
+                                    <input type="text" id={'tweetImage'} name={'tweetImage'}/>
+                                </div>
+                                <div className={'formStyle'}>
+                                    <label htmlFor={'tweetPublic'}>Public Tweet: </label>
+                                    <input type="checkbox" name={'tweetPublic'}/>
+                                </div>
+                                <div className={'formStyle'}>
+                                    <input type="submit" value={'add tweet'}/>
+                                </div>
+                            </form>
+                        </div>
+
+                        <div className={'profileTweets'}>
+                            <h3>Your Tweets</h3>
+                            {this.state.tweetArray}
+                        </div>
+
                     </div>
-                    <h2>Add Tweet</h2>
-                    <form onSubmit={this.formSubmit}>
-                        <div className={'formStyle'}>
-                            <label htmlFor={'tweetMessage'}>Tweet Message: </label>
-                            <input className={'textBox'} type="text" id={'tweetMessage'} name={'tweetMessage'}/>
-                        </div>
-                        <div className={'formStyle'}>
-                            <label htmlFor={'tweetImage'}>Tweet Image URL: </label>
-                            <input type="text" id={'tweetImage'} name={'tweetImage'}/>
-                        </div>
-                        <div className={'formStyle'}>
-                            <label htmlFor={'tweetPublic'}>Public Tweet: </label>
-                            <input type="checkbox" name={'tweetPublic'}/>
-                        </div>
-                        <div className={'formStyle'}>
-                            <input type="submit" value={'add tweet'}/>
-                        </div>
-                    </form>
-                    <h3>Your Tweets</h3>
-                    {this.state.tweetArray}
                 </div>
             );
         }

@@ -123,7 +123,7 @@ router.post('/addTweet', (req, res) => {
         });
 });
 
-//edit tweet message
+//edit tweet
 router.post('/editTweet/:id/:tweetId', (req, res) => {
     TwitterUserCollection.updateOne({_id: req.params.id, "tweets._id": req.params.tweetId},
         {
@@ -150,70 +150,29 @@ router.get('/grabTweets', (req, res) => {
     })
 });
 
-//INCOMPLETE fixme
 //search tweets
 router.post('/searchTweets', (req, res) => {
-    let searchResults = 'no results';
-    TwitterUserCollection.find({}, (errors, results) => {
-        if (errors) res.send('not found');
-        else {
-            for (let i = 0; i < parseInt(results.length); i++) {
-                for (let j = 0; j < results[i].tweets.length; j++) {
-                    console.log(results[i].tweets[j].tweetMessage);
-                    if ((results[i].tweets[j].tweetMessage) === (req.body.searchBar)) {
-                        searchResults = results[i].tweets[j].tweetMessage;
-                        console.log(results[i].tweets[j].tweetMessage)
-                    }
-                }
-            }
-            res.send(searchResults)
-        }
-    })
-});
-
-//search tweets 2.0
-router.post('/searchTweets2', (req, res) => {
     TwitterUserCollection.find(
         {"tweets.tweetMessage": {"$regex": req.body.searchBar, "$options": "i"}}, (errors, results) => {
             if (errors) res.send(errors);
             else {
-                let resultsCollection = {};
                 let resultsArray = [];
+                let sendArray = [];
                 for (let i = 0; i < results.length; i++) {
                     for (let j = 0; j < results[i].tweets.length; j++) {
-                        resultsCollection.tweetMessage = results[i].tweets[j].tweetMessage;
-                        resultsArray.push(resultsCollection);
-                        console.log(results[i].tweets[j].tweetMessage);
+                        resultsArray.push(results[i].tweets[j].tweetMessage,);
                     }
                 }
-                // for(let i = 0; i < resultsArray.length; i++){
-                //     resultsCollection.find({'tweetMessage': {"$regex": req.body.searchBar, "$options": "i"}}, (errors, results) => {
-                //             if(errors) console.log(errors);
-                //             else{
-                //                 if(results) console.log(results);
-                //                 else console.log('no results')
-                //             }
-                //         });
-                // }
-                res.send(resultsArray);
+                for(let i=0; i<resultsArray.length; i++){
+                    if(resultsArray[i].includes(req.body.searchBar)){
+                        sendArray.push(resultsArray[i])
+                    }
+                }
+                res.send(sendArray);
             }
         })
 });
 
-//search tweet 3.0 BROKEN
-router.post('/search3', (req, res) => {
-    TwitterUserCollection.findOne({'tweets.tweetMessage': req.body.searchBar}, {'tweets.$': 1}, (errors, results) => {
-        if (errors) res.send(errors);
-        else{
-            if (results) {
-                res.send(results.tweets[0].tweetMessage);
-            }
-            else{
-                res.send('no results')
-            }
-        }
-    })
-});
 
 //grab user
 router.post('/searchUsers', (req, res) => {

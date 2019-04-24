@@ -12,7 +12,7 @@ class TwitterHome extends Component {
             theFinalPublicMap:[],
             theFinalLoggedInMap:[],
 
-            searchResults:'',
+            searchResults:[],
             mappedResults:[],
         };
         this.tweetFetch()
@@ -58,7 +58,7 @@ class TwitterHome extends Component {
                 eachUser.tweets
             )
         });
-        for(let i=0; i<mappedUsers.length; i++){
+        for(let i=mappedUsers.length-1; i>0; i--){
             let mappedTweets = mappedUsers[i].map((eachTweet)=>{
                 return(this.state.anotherMap.push(eachTweet))
             });
@@ -103,11 +103,11 @@ class TwitterHome extends Component {
                 searchBar: e.target.searchBar.value,
             })
         })
-            .then((data) => data.text())
+            .then((data) => data.json())
             .then((data) => {
                 if (data) {
                     this.setState({searchResults:data});
-                    // this.mapResults()
+                    this.mapResults()
                 } else {
                     this.setState({searchResults:null});
                 }
@@ -115,21 +115,21 @@ class TwitterHome extends Component {
 
     };
 
-    // mapResults = () => {
-    //   let mappedResults = this.state.searchResults.map((eachResult)=> {
-    //       return(
-    //           <div>
-    //               <p>{eachResult}</p>
-    //               <br/>
-    //           </div>
-    //       )
-    //   });
-    //     this.setState({mappedResults:mappedResults})
-    // };
+    //map search results
+    mapResults = () => {
+      let mappedResults = this.state.searchResults.map((eachResult)=> {
+          return(
+              <div>
+                  <p>{eachResult}</p>
+              </div>
+          )
+      });
+        this.setState({mappedResults:mappedResults})
+    };
 
     //clear the search results
     clearResults = () => {
-        this.setState({searchResults:null})
+        this.setState({mappedResults:null})
     };
 
     render() {
@@ -146,7 +146,7 @@ class TwitterHome extends Component {
                     </div>
                     <button onClick={this.clearResults}>Clear Results</button>
                     <br/>
-                    {this.state.searchResults}
+                    {this.state.mappedResults}
                     <h3>All Tweets: </h3>
                     <hr/>
                     {this.state.theFinalLoggedInMap.slice(0,5)}
@@ -166,7 +166,7 @@ class TwitterHome extends Component {
                     </div>
                     <button onClick={this.clearResults}>Clear Results</button>
                     <br/>
-                    {this.state.searchResults}
+                    {this.state.mappedResults}
                     <h3>Sign In</h3>
                     <form onSubmit={this.formSubmit}>
                         <div className={'formStyle'}>

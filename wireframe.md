@@ -2,7 +2,6 @@
 ###TODO:
 - look up mongoose queries to sort tweets by date: 
     UserCollection.find( ).sort( { field: value } )
-- search tweets by tweet body
 ###Server:
 - new user strategy and routes
 - login strategy and routes
