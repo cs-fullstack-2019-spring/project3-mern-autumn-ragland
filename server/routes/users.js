@@ -160,19 +160,25 @@ router.post('/searchTweets', (req, res) => {
                 let sendArray = [];
                 for (let i = 0; i < results.length; i++) {
                     for (let j = 0; j < results[i].tweets.length; j++) {
-                        resultsArray.push(results[i].tweets[j].tweetMessage,);
+                        resultsArray.push(results[i].tweets[j].tweetMessage);
+                        // resultsArray.push(
+                        //     {
+                        //         tweetMessage:results[i].tweets[j].tweetMessage,
+                        //         tweetImage:results[i].tweets[j].tweetImage,
+                        //     }
+                        // )
                     }
                 }
                 for(let i=0; i<resultsArray.length; i++){
                     if(resultsArray[i].includes(req.body.searchBar)){
                         sendArray.push(resultsArray[i])
+                        // console.log(resultsArray[i].tweetMessage)
                     }
                 }
                 res.send(sendArray);
             }
         })
 });
-
 
 //grab user
 router.post('/searchUsers', (req, res) => {

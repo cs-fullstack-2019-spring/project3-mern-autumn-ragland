@@ -11,9 +11,6 @@ class TwitterHome extends Component {
 
             theFinalPublicMap:[],
             theFinalLoggedInMap:[],
-
-            searchResults:[],
-            mappedResults:[],
         };
         this.tweetFetch()
     }
@@ -77,6 +74,9 @@ class TwitterHome extends Component {
                     </div>
                 )
             }
+            else{
+                return ('')
+            }
         });
         let finalLoggedInMap = this.state.anotherMap.map((eachTweet)=>{
             return(
@@ -90,63 +90,11 @@ class TwitterHome extends Component {
         this.setState({theFinalLoggedInMap:finalLoggedInMap})
     };
 
-    //search form submission handler
-    searchFormSubmit = (e) =>{
-        e.preventDefault();
-        fetch('/users/searchTweets', {
-            method: 'POST',
-            headers: {
-                "Accept": "application/json",
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-                searchBar: e.target.searchBar.value,
-            })
-        })
-            .then((data) => data.json())
-            .then((data) => {
-                if (data) {
-                    this.setState({searchResults:data});
-                    this.mapResults()
-                } else {
-                    this.setState({searchResults:null});
-                }
-            })
-
-    };
-
-    //map search results
-    mapResults = () => {
-      let mappedResults = this.state.searchResults.map((eachResult)=> {
-          return(
-              <div>
-                  <p>{eachResult}</p>
-              </div>
-          )
-      });
-        this.setState({mappedResults:mappedResults})
-    };
-
-    //clear the search results
-    clearResults = () => {
-        this.setState({mappedResults:null})
-    };
-
     render() {
         //logged in user display
         if (this.props.isLoggedIn === true) {
             return (
                 <div className="App">
-                    <div>
-                        <form className={'formStyle'} onSubmit={this.searchFormSubmit}>
-                            <label htmlFor={'searchBar'}>Search: </label>
-                            <input type="text" name={'searchBar'} placeholder={'search all tweets'}/>
-                            <input type="submit" value={'search'}/>
-                        </form>
-                    </div>
-                    <button onClick={this.clearResults}>Clear Results</button>
-                    <br/>
-                    {this.state.mappedResults}
                     <h3>All Tweets: </h3>
                     <hr/>
                     {this.state.theFinalLoggedInMap.slice(0,5)}
@@ -157,16 +105,6 @@ class TwitterHome extends Component {
         else {
             return (
                 <div className="App">
-                    <div>
-                        <form className={'formStyle'} onSubmit={this.searchFormSubmit}>
-                            <label htmlFor={'searchBar'}>Search: </label>
-                            <input type="text" name={'searchBar'} placeholder={'search all tweets'}/>
-                            <input type="submit" value={'search'}/>
-                        </form>
-                    </div>
-                    <button onClick={this.clearResults}>Clear Results</button>
-                    <br/>
-                    {this.state.mappedResults}
                     <h3>Sign In</h3>
                     <form onSubmit={this.formSubmit}>
                         <div className={'formStyle'}>
@@ -183,7 +121,8 @@ class TwitterHome extends Component {
                     </form>
                     <h3>Public Tweets: </h3>
                     <hr/>
-                    {this.state.theFinalPublicMap.slice(0,5)}
+                    {/*{this.state.theFinalPublicMap.slice(0,5)}*/}
+                    {this.state.theFinalPublicMap}
                 </div>
             );
         }
