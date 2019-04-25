@@ -32,9 +32,9 @@ class App extends Component {
                   <div className="App">
                       <h1>Mock Twitter</h1>
                       <Link className={'linkStyle'} to={'/'}>Home</Link>
+                      <Link className={'linkStyle'} to={'/searchTweets'}>Search</Link>
                       <Link className={'linkStyle'} to={'/profile'}>Profile</Link>
                       <Link className={'linkStyle'} to={'/'} onClick={this.userLogout}>Logout</Link>
-                      <Link className={'linkStyle'} to={'/searchTweets'}>Search</Link>
                   </div>
                   <Route path={'/'} exact component={()=> <TwitterHome username={this.state.username} isLoggedIn={this.state.isLoggedIn} userInfo={this.userInfo}/>} />
                   <Route path={'/profile'} component={() => <TwitterProfile username={this.state.username} isLoggedIn={this.state.isLoggedIn}/>} />

@@ -40,9 +40,8 @@ class TwitterSearch extends Component {
         let mappedResults = this.state.searchResults.map((eachResult)=> {
             return(
                 <div className={'tweetGrid'}>
-                    <p className={'tweetMessage'}>{eachResult}</p>
-                    {/*<p className={'tweetMessage'}>{eachTweet.tweetMessage}</p>*/}
-                    {/*<img className={'tweetImage'} src={eachResult.tweetImage} alt=""/>*/}
+                    <p className={'tweetMessage'}>{eachResult.tweetMessage}</p>
+                    <img className={'tweetImage'} src={eachResult.tweetImage} alt=""/>
                 </div>
             )
         });
