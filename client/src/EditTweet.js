@@ -8,7 +8,7 @@ class EditTweet extends Component {
         }
     }
 
-    //fixme INCOMPLETE only works for one field
+    //fixme INCOMPLETE does not auto populate tweet public
     //edit tweet form submission event handler
     formSubmit = (e) => {
         e.preventDefault();
@@ -44,7 +44,7 @@ class EditTweet extends Component {
                         </div>
                         <div className={'formStyle'}>
                             <label htmlFor={'tweetPublic'}>Public Tweet: </label>
-                            <input type="checkbox" name={'tweetPublic'}/>
+                            <input type="checkbox" name={'tweetPublic'} defaultChecked={this.props.tweetPublic}/>
                         </div>
                         <div className={'formStyle'}>
                             <input type="submit" value={'edit tweet'}/>

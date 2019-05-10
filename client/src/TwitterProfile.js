@@ -46,7 +46,7 @@ class TwitterProfile extends Component {
                             <Link className={'editButton'} to={'/edit/' + this.state.userData._id + '/' + eachTweet._id}>Edit</Link>
                         </div>
                         <Route path={'/edit/' + this.state.userData._id + '/' + eachTweet._id}
-                               component={()=> <EditTweet tweetMessage={eachTweet.tweetMessage} tweetImage={eachTweet.tweetImage} userID={this.state.userData._id} tweetID={eachTweet._id}/>}/>
+                               component={()=> <EditTweet tweetMessage={eachTweet.tweetMessage} tweetImage={eachTweet.tweetImage} tweetPublic={eachTweet.tweetPublic} userID={this.state.userData._id} tweetID={eachTweet._id}/>}/>
                     </Router>
                 )
             });

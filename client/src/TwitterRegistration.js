@@ -24,7 +24,8 @@ class TwitterRegistration extends Component {
                 profileImage:e.target.profileImage.value,
                 backgroundImage:e.target.backgroundImage.value,
             })
-        })
+        });
+        this.setState({message:'Account Created! Please login!'})
     };
 
     render() {

@@ -24,7 +24,7 @@ var createHash = function (password) {
     return bCrypt.hashSync(password, bCrypt.genSaltSync(10), null);
 };
 
-//cookie check fixme
+//cookie check afixme
 // router.get('/', (req, res) => {
 //   if (req.session.username) {
 //     res.send(req.session.username);
