@@ -6,6 +6,7 @@ import TwitterRegistration from "./TwitterRegistration";
 import TwitterProfile from "./TwitterProfile";
 import EditTweet from "./EditTweet";
 import TwitterSearch from "./TwitterSearch";
+import '../node_modules/bootstrap/dist/css/bootstrap.css';
 
 class App extends Component {
 
@@ -29,13 +30,16 @@ class App extends Component {
       if(this.state.username){
           return (
               <Router>
-                  <div className="App">
-                      <h1>Mock Twitter</h1>
-                      <Link className={'linkStyle'} to={'/'}>Home</Link>
-                      <Link className={'linkStyle'} to={'/searchTweets'}>Search</Link>
-                      <Link className={'linkStyle'} to={'/profile'}>Profile</Link>
-                      <Link className={'linkStyle'} to={'/'} onClick={this.userLogout}>Logout</Link>
+                  <div className='justify-content-center'>
+                      <div className="nav-item">
+                          <h1>Mock Twitter</h1>
+                          <Link className={'linkStyle'} to={'/'}>Home</Link>
+                          <Link className={'linkStyle'} to={'/searchTweets'}>Search</Link>
+                          <Link className={'linkStyle'} to={'/profile'}>Profile</Link>
+                          <Link className={'linkStyle'} to={'/'} onClick={this.userLogout}>Logout</Link>
+                      </div>
                   </div>
+
                   <Route path={'/'} exact component={()=> <TwitterHome username={this.state.username} isLoggedIn={this.state.isLoggedIn} userInfo={this.userInfo}/>} />
                   <Route path={'/profile'} component={() => <TwitterProfile username={this.state.username} isLoggedIn={this.state.isLoggedIn}/>} />
                   <Route path={'/searchTweets'} component={()=> <TwitterSearch/>} />
@@ -46,12 +50,15 @@ class App extends Component {
       else{
           return (
               <Router>
-                  <div className="App">
-                      <h1>Mock Twitter</h1>
-                      <Link className={'linkStyle'} to={'/'}>Home</Link>
-                      <Link className={'linkStyle'} to={'/searchTweets'}>Search</Link>
-                      <Link className={'linkStyle'} to={'/register'}>Register</Link>
+                  <div className='justify-content-center'>
+                      <div className="nav-item">
+                          <h1>Mock Twitter</h1>
+                          <Link className={'linkStyle'} to={'/'}>Home</Link>
+                          <Link className={'linkStyle'} to={'/searchTweets'}>Search</Link>
+                          <Link className={'linkStyle'} to={'/register'}>Register</Link>
+                      </div>
                   </div>
+
                   <Route path={'/'} exact component={()=> <TwitterHome username={this.state.username} isLoggedIn={this.state.isLoggedIn} userInfo={this.userInfo}/>} />
                   <Route path={'/register'} component={() => <TwitterRegistration userInfo={this.userInfo} />} />
                   <Route path={'/searchTweets'} component={()=> <TwitterSearch/>} />

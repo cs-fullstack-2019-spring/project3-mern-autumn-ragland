@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import '../node_modules/bootstrap/dist/css/bootstrap.css';
 
 class TwitterHome extends Component {
 
@@ -73,6 +74,7 @@ class TwitterHome extends Component {
                         <img className={'tweetImage'} src={eachTweet.tweetImage} alt=""/>
                     </div>
                 )
+
             }
             else{
                 return ('')

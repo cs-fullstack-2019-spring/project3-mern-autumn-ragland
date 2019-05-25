@@ -43,7 +43,9 @@ class TwitterProfile extends Component {
                         <div key={eachTweet._id} className={'tweetGrid'}>
                             <p className={'tweetMessage'}>{eachTweet.tweetMessage}</p>
                             <img className={'tweetImage'} src={eachTweet.tweetImage} alt=""/>
-                            <Link className={'editButton'} to={'/edit/' + this.state.userData._id + '/' + eachTweet._id}>Edit</Link>
+                            <Link to={'/edit/' + this.state.userData._id + '/' + eachTweet._id}>
+                                <button className={'btn btn-secondary'}>Edit</button>
+                            </Link>
                         </div>
                         <Route path={'/edit/' + this.state.userData._id + '/' + eachTweet._id}
                                component={()=> <EditTweet tweetMessage={eachTweet.tweetMessage} tweetImage={eachTweet.tweetImage} tweetPublic={eachTweet.tweetPublic} userID={this.state.userData._id} tweetID={eachTweet._id}/>}/>
@@ -83,7 +85,7 @@ class TwitterProfile extends Component {
 
                         <div className={'profileImages'}>
                             <img className={'profile'} src={this.state.userData.profileImage} alt=""/>
-                            <img className={'background'} src={this.state.userData.backgroundImage} alt=""/>
+                            {/*<img className={'background'} src={this.state.userData.backgroundImage} alt=""/>*/}
                         </div>
 
                         <div className={'profileForm'}>
@@ -101,9 +103,9 @@ class TwitterProfile extends Component {
                                     <label htmlFor={'tweetPublic'}>Public Tweet: </label>
                                     <input type="checkbox" name={'tweetPublic'}/>
                                 </div>
-                                <div className={'formStyle'}>
-                                    <input type="submit" value={'add tweet'}/>
-                                </div>
+                                <button className={'btn btn-primary'}>
+                                    Submit
+                                </button>
                             </form>
                         </div>
 

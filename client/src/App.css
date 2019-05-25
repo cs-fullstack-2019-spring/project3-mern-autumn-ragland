@@ -1,5 +1,8 @@
+/*basic styling mostly overridden by bootstrap*/
 .App {
     text-align: center;
+    align-content: center;
+    justify-content: center;
 }
 
 .linkStyle {
@@ -9,17 +12,31 @@
 .formStyle {
     margin: 1%;
 }
-
-
+/*********************************************************************************************************************/
+/*profile page styling*/
 .profileGrid {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: repeat(5,1fr);
+    margin-left: 10%;
+    margin-right: 10%;
     grid-template-rows: minmax(50px, 200px);
 }
+.profileForm {
+    grid-column: 1;
+    grid-row: 2;
+}
 
+.profileTweets {
+    padding: 0;
+    margin: 0;
+    grid-column: 1/6;
+    grid-row: 2/5;
+    width: 100%;
+}
+/*user image styling*/
 .profileImages {
     position: relative;
-    grid-column: 1;
+    grid-column: 3;
     text-align: center;
     height: 100%;
     margin: 1%;
@@ -30,23 +47,16 @@
     clip-path: circle(25% at center);
 }
 
-.background {
-    position: absolute;
-    left: 40%;
-    bottom: 10%;
-    z-index: -1;
-    /*height:100%;*/
-    clip-path: polygon(0 50%, 100% 50%, 100% 100%, 0% 100%);
-}
-
-.profileForm {
-    grid-column: 2;
-}
-
-.profileTweets {
-    grid-column: 1/3;
-    grid-row: 2;
-}
+/*.background {*/
+/*    position: absolute;*/
+/*    left: 40%;*/
+/*    bottom: 10%;*/
+/*    z-index: -1;*/
+/*    !*height:100%;*!*/
+/*    clip-path: polygon(0 50%, 100% 50%, 100% 100%, 0% 100%);*/
+/*}*/
+/*********************************************************************************************************************/
+/*tweet styling*/
 .tweetGrid {
     display: grid;
     font-size: 25px;
