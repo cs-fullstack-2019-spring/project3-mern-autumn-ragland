@@ -30,9 +30,9 @@ class App extends Component {
       if(this.state.username){
           return (
               <Router>
-                  <div className='justify-content-center'>
+                  <div className='nav-fill'>
                       <div className="nav-item">
-                          <h1>Mock Twitter</h1>
+                          <h2>Mock Twitter</h2>
                           <Link className={'linkStyle'} to={'/'}>Home</Link>
                           <Link className={'linkStyle'} to={'/searchTweets'}>Search</Link>
                           <Link className={'linkStyle'} to={'/profile'}>Profile</Link>
@@ -50,9 +50,9 @@ class App extends Component {
       else{
           return (
               <Router>
-                  <div className='justify-content-center'>
+                  <div className='nav-fill'>
                       <div className="nav-item">
-                          <h1>Mock Twitter</h1>
+                          <h2>Mock Twitter</h2>
                           <Link className={'linkStyle'} to={'/'}>Home</Link>
                           <Link className={'linkStyle'} to={'/searchTweets'}>Search</Link>
                           <Link className={'linkStyle'} to={'/register'}>Register</Link>

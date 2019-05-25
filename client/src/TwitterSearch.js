@@ -37,13 +37,36 @@ class TwitterSearch extends Component {
 
     //map search results
     mapResults = () => {
-        let mappedResults = this.state.searchResults.map((eachResult)=> {
-            return(
-                <div className={'tweetGrid'}>
-                    <p className={'tweetMessage'}>{eachResult.tweetMessage}</p>
-                    <img className={'tweetImage'} src={eachResult.tweetImage} alt=""/>
-                </div>
-            )
+        let mappedResults = this.state.searchResults.map((eachTweet)=> {
+            if(eachTweet.tweetImage){
+                return(
+                    <div className="card mb-3">
+                        <div className="row no-gutters">
+                            <div className="col-md-4" style={{height: 25 + '%'}}>
+                                <img src={eachTweet.tweetImage} className="card-img" alt="Tweet Image"/>
+                            </div>
+                            <div className="col-md-8">
+                                <div className="card-body">
+                                    <h5 className="card-title">{eachTweet.tweetMessage}</h5>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                )
+            }
+            else{
+                return(
+                    <div className="card mb-3">
+                        <div className="row no-gutters">
+                            <div className="col-md-4">
+                                <div className="card-body">
+                                    <h5 className="card-title">{eachTweet.tweetMessage}</h5>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                )
+            }
         });
         this.setState({mappedResults:mappedResults})
     };
@@ -66,7 +89,10 @@ class TwitterSearch extends Component {
                     </div>
                     <button onClick={this.clearResults}>Clear Results</button>
                     <br/>
-                    {this.state.mappedResults}
+                    <div className='tweetCardHome'>
+                        {this.state.mappedResults}
+                    </div>
+
                 </div>
             );
     }

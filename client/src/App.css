@@ -13,6 +13,12 @@
     margin: 1%;
 }
 /*********************************************************************************************************************/
+/*homepage page styling*/
+
+.tweetCardHome{
+    margin: 0 15% 0 15%;
+}
+/*********************************************************************************************************************/
 /*profile page styling*/
 .profileGrid {
     display: grid;
@@ -29,7 +35,7 @@
 .profileTweets {
     padding: 0;
     margin: 0;
-    grid-column: 1/6;
+    grid-column: 2/6;
     grid-row: 2/5;
     width: 100%;
 }
@@ -61,11 +67,12 @@
     display: grid;
     font-size: 25px;
     grid-template-columns: 1fr 1fr;
-    margin: 1% 25% 1% 25%;
+    margin: 1% 15% 1% 15%;
     height: 5%;
-    width: 50%;
+    /*width: 50%;*/
     background: rgba(211, 211, 211, 0.5);
     border: 2px solid lightgray;
+    border-radius: 5px;
 }
 
 .tweetMessage {
@@ -85,6 +92,10 @@
 .editButton {
     grid-column: 2;
     grid-row: 2;
+    margin: 1%;
+    padding: 1%;
+    /*text-align: left;*/
+    align-content: end;
     /*width: 25%;*/
     /*margin: 5%;*/
 }

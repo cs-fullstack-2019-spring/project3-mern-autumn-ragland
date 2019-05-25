@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import '../node_modules/bootstrap/dist/css/bootstrap.css';
+import {Link} from "react-router-dom";
 
 class TwitterHome extends Component {
 
@@ -68,25 +69,71 @@ class TwitterHome extends Component {
     mapAllTweets = () => {
         let finalPublicMap = this.state.anotherMap.map((eachTweet)=>{
             if(eachTweet.tweetPublic === true){
-                return(
-                    <div key={eachTweet._id} className={'tweetGrid'}>
-                        <p className={'tweetMessage'}>{eachTweet.tweetMessage}</p>
-                        <img className={'tweetImage'} src={eachTweet.tweetImage} alt=""/>
-                    </div>
-                )
-
+                if(eachTweet.tweetImage){
+                    return(
+                        <div className="card mb-3">
+                            <div className="row no-gutters">
+                                <div className="col-md-4" style={{height: 25 + '%'}}>
+                                    <img src={eachTweet.tweetImage} className="card-img" alt="Tweet Image"/>
+                                </div>
+                                <div className="col-md-8">
+                                    <div className="card-body">
+                                        <h5 className="card-title">{eachTweet.tweetMessage}</h5>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    )
+                }
+                else{
+                    return(
+                        <div className="card mb-3">
+                            <div className="row no-gutters">
+                                <div className="col-md-4">
+                                    <div className="card-body">
+                                        <h5 className="card-title">{eachTweet.tweetMessage}</h5>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    )
+                }
             }
             else{
                 return ('')
             }
         });
         let finalLoggedInMap = this.state.anotherMap.map((eachTweet)=>{
-            return(
-                <div key={eachTweet._id} className={'tweetGrid'}>
-                    <p className={'tweetMessage'}>{eachTweet.tweetMessage}</p>
-                    <img className={'tweetImage'} src={eachTweet.tweetImage} alt=""/>
-                </div>
-            )
+            if(eachTweet.tweetImage){
+                return(
+                    <div className="card mb-3">
+                        <div className="row no-gutters">
+                            <div className="col-md-4" style={{height: 25 + '%'}}>
+                                <img src={eachTweet.tweetImage} className="card-img" alt="Tweet Image"/>
+                            </div>
+                            <div className="col-md-8">
+                                <div className="card-body">
+                                    <h5 className="card-title">{eachTweet.tweetMessage}</h5>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                )
+            }
+            else{
+                return(
+                    <div className="card mb-3">
+                        <div className="row no-gutters">
+                            <div className="col-md-4">
+                                <div className="card-body">
+                                    <h5 className="card-title">{eachTweet.tweetMessage}</h5>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                )
+            }
+
         });
         this.setState({theFinalPublicMap:finalPublicMap});
         this.setState({theFinalLoggedInMap:finalLoggedInMap})
@@ -97,10 +144,13 @@ class TwitterHome extends Component {
         if (this.props.isLoggedIn === true) {
             return (
                 <div className="App">
-                    <h3>All Tweets: </h3>
-                    <hr/>
-                    {this.state.theFinalLoggedInMap.slice(0,5)}
+                    <div className="tweetCardHome">
+                        <h3>All Tweets: </h3>
+                        <hr/>
+                        {this.state.theFinalLoggedInMap.slice(0,5)}
+                    </div>
                 </div>
+
             );
         }
         //not logged in user display
@@ -121,10 +171,13 @@ class TwitterHome extends Component {
                             <input type="submit" value={'sign in'}/>
                         </div>
                     </form>
-                    <h3>Public Tweets: </h3>
-                    <hr/>
-                    {/*{this.state.theFinalPublicMap.slice(0,5)}*/}
-                    {this.state.theFinalPublicMap}
+                    <div className='tweetCardHome'>
+                        <h3>Public Tweets: </h3>
+                        <hr/>
+                        {/*{this.state.theFinalPublicMap.slice(0,5)}*/}
+                        {this.state.theFinalPublicMap}
+                    </div>
+
                 </div>
             );
         }

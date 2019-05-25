@@ -40,12 +40,20 @@ class TwitterProfile extends Component {
             let tweetMap = this.state.userData.tweets.map((eachTweet) => {
                 return (
                     <Router>
-                        <div key={eachTweet._id} className={'tweetGrid'}>
-                            <p className={'tweetMessage'}>{eachTweet.tweetMessage}</p>
-                            <img className={'tweetImage'} src={eachTweet.tweetImage} alt=""/>
-                            <Link to={'/edit/' + this.state.userData._id + '/' + eachTweet._id}>
-                                <button className={'btn btn-secondary'}>Edit</button>
-                            </Link>
+                        <div className="card mb-3">
+                            <div className="row no-gutters">
+                                <div className="col-md-4" style={{height: 50 + '%'}}>
+                                    <img src={eachTweet.tweetImage} className="card-img" alt="Tweet Image"/>
+                                </div>
+                                <div className="col-md-8">
+                                    <div className="card-body">
+                                        <h5 className="card-title">{eachTweet.tweetMessage}</h5>
+                                        <Link to={'/edit/' + this.state.userData._id + '/' + eachTweet._id}>
+                                            <button className={'btn btn-secondary'}>Edit</button>
+                                        </Link>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                         <Route path={'/edit/' + this.state.userData._id + '/' + eachTweet._id}
                                component={()=> <EditTweet tweetMessage={eachTweet.tweetMessage} tweetImage={eachTweet.tweetImage} tweetPublic={eachTweet.tweetPublic} userID={this.state.userData._id} tweetID={eachTweet._id}/>}/>
